@@ -39,4 +39,6 @@ local function MoveShip(event)
 end
 
 --MoveShip will be called over and over again
-Runtime:addEventListener("enterFrame ", MoveShip)
+Runtime:addEventListener("enterFrame", MoveShip)
+
+--character image with width and height
