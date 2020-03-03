@@ -65,4 +65,4 @@ local function moveStar(event)
 end
 
 --movestar will be called over and over again
-Runtime:addEventListener("enterFrame", moveStar) 
+Runtime:addEventListener("enterFrame", moveStar) \
