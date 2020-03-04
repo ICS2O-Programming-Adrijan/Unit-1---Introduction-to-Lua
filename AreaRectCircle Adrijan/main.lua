@@ -44,11 +44,25 @@ areaText = display.newText("The area of this rectangle with a width of \n" ..
 	widthOfRectangle .. " and a height of " .. heightOfRectangle .. " is " ..
 	areaOfRectangle .. " pixels².", 0, 0, Arial, textsize)
 
-	-- anchor the text and set its (x,y) position
+-- anchor the text and set its (x,y) position
 	areaText.anchorX = 0
 	areaText.anchorY = 0
 	areaText.x = 20
 	areaText.y = display.contentHeight/2
 
-	-- set the colour of the newtext
-	areaText:setTextColor(1, 1, 1)
+-- set the colour of the newtext
+	areaText:setTextColor(1, 1, 1) 
+
+
+local myCircle
+local radius = 50
+local 
+
+--Draw myCircle
+myCircle = diplay.newCircle()
+
+
+
+
+
+
