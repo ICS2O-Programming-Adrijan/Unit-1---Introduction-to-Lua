@@ -50,6 +50,7 @@ areaText = display.newText("The area of this rectangle with a width of \n" ..
 	areaText.x = 20
 	areaText.y = display.contentHeight/2
 
+<<<<<<< HEAD
 -- set the colour of the newtext
 	areaText:setTextColor(1, 1, 1) 
 
@@ -66,3 +67,15 @@ myCircle = diplay.newCircle()
 
 
 
+=======
+	-- set the colour of the newtext
+	areaText:setTextColor(1, 1, 1)
+
+
+local PI = 3.14
+local myCircle
+local radius = 50
+
+	--making the circle
+myCircle = display.newCircle(0, 0, radius)
+>>>>>>> 83583bf62fe46a893d6a6a5668f49447ea0bcc31
