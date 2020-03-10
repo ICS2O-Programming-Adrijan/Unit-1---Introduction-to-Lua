@@ -48,34 +48,40 @@ areaText = display.newText("The area of this rectangle with a width of \n" ..
 	areaText.anchorX = 0
 	areaText.anchorY = 0
 	areaText.x = 20
-	areaText.y = display.contentHeight/2
+	areaText.y = 250
 
-<<<<<<< HEAD
 -- set the colour of the newtext
 	areaText:setTextColor(1, 1, 1) 
 
 
-local myCircle
-local radius = 50
-local 
-
---Draw myCircle
-myCircle = diplay.newCircle()
-
-
-
-
-
-
-=======
-	-- set the colour of the newtext
-	areaText:setTextColor(1, 1, 1)
-
-
+local areaTextCircle
+local areaOfCircle
 local PI = 3.14
 local myCircle
 local radius = 50
 
 	--making the circle
 myCircle = display.newCircle(0, 0, radius)
->>>>>>> 83583bf62fe46a893d6a6a5668f49447ea0bcc31
+
+myCircle.x = 100
+myCircle.y = 500
+
+--Setting the color of my circle
+myCircle.strokeWidth = 10
+myCircle:setStrokeColor(0/255, 0/255, 0/255)
+myCircle:setFillColor(255/255, 255/255, 255/255)
+
+--calculate the area
+areaOfCircle = radius * radius * PI
+
+--write the area on the screen.
+areaTextCircle = display.newText("The area of this circle with a radius of \n "..radius.." is "..areaOfCircle.." pixels².", 0, 0, Arial, textsize)
+
+--anchor the text and set its (x,y) position
+areaTextCircle.anchorX = 0
+areaTextCircle.anchorY=0
+areaTextCircle.x = 5
+areaTextCircle.y = 600
+
+-- set the color of the text
+areaTextCircle:setTextColor(1, 1, 1)
