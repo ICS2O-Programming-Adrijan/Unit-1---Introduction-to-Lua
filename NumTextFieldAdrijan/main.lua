@@ -12,7 +12,7 @@
 display.setStatusBar(display.HiddenStatusBar)
 
 --sets the background color
-display.seDefault("background", 124/255, 249/255, 199/255)
+display.setDefault("background", 124/255, 249/255, 199/255)
 
 -------------------------------------------------------------
 --LOCAL VARIABLES
@@ -26,6 +26,8 @@ local randomNumber1
 local randomNumber2
 local userAnswer
 local correctAnswer
+local incorrectObject 
+
 
 ------------------------------------------------------------------
 --LOCAL FUNCTIONS
@@ -44,6 +46,7 @@ end
 
 local function HideCorrect()
 	correctObject.isvisible = false
+	incorrectObject.isVisible = false
 	askQuestion()
 end
 
@@ -62,11 +65,19 @@ local function numericFieldListener(event)
 
 		--if the user answer and the correct answer are the same:
 		if (userAnswer == correctAnswer) then
+			incorrectObject.isVisible = false
 			correctObject.isVisible = true
 			timer.performWithDelay(2000, HideCorrect)
+
+		else 
+			incorrectObject.isVisible = true
+			correctObject.isVisible = false
+
 		end
 	end
 end
+
+
 
 -------------------------------------------------------------
 --OBJECT CREATION
@@ -77,9 +88,10 @@ questionObject = display.newText("", display.contentWidth/3, display.contentHeig
 questionObject:setTextColor(155/255, 42/255, 198/255)
 
 --create the correct text object and make it invisible
-correctObject = display.newText("Correct!". display.contentWidth/2, display.contentHeight*2/3, nil, 50 )
+correctObject = display.newText( "Correct!", display.contentWidth/2, display.contentHeight*2/3, nil, 50 )
 correctObject:setTextColor(155/255, 42/255, 198/255)
 correctObject.isvisible = false
+incorrectObject = display.newText("Incorrect!", display.contentWidth/2, display.contentHeight*2/3, nil, 50 )
 
 --create numeric field
 numericField = native.newTextField( display.contentWidth/2, display.contentHeight/2, 150, 80 )
@@ -87,3 +99,10 @@ numericField.inputType = "number"
 
 --add the event listener for the numeric field
 numericField:addEventListener( "userInput", numericFieldListener )
+
+---------------------------------------------------------------------------
+--FUNCTION CALL
+-----------------------------------------------------------------------------
+
+--call the function to ask the question
+askQuestion()
