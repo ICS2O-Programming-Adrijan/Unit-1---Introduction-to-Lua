@@ -26,7 +26,7 @@ local randomNumber1
 local randomNumber2
 local userAnswer
 local correctAnswer
-local incorrectObject 
+local incorrectObject
 
 
 ------------------------------------------------------------------
@@ -34,9 +34,10 @@ local incorrectObject
 -----------------------------------------------------------------
 
 local function askQuestion()
+
 	--gernerate 2 random numbers between a max. and a min.
-	randomNumber1 = math.random(0, 10)
-	randomNumber2 = math.random(0, 10)
+	randomNumber1 = math.random(0, 8)
+	randomNumber2 = math.random(0, 8)
 
 	correctAnswer = randomNumber1 + randomNumber2
 
@@ -68,10 +69,12 @@ local function numericFieldListener(event)
 			incorrectObject.isVisible = false
 			correctObject.isVisible = true
 			timer.performWithDelay(2000, HideCorrect)
+			event.target.text = ""
 
 		else 
 			incorrectObject.isVisible = true
 			correctObject.isVisible = false
+			event.target.text = ""
 
 		end
 	end
@@ -84,7 +87,7 @@ end
 -----------------------------------------------------------
 
 --display a question and sets the color
-questionObject = display.newText("", display.contentWidth/3, display.contentHeight/2, nil, 50 )
+questionObject = display.newText("", display.contentWidth/3, display.contentHeight/2, arial, 100 )
 questionObject:setTextColor(155/255, 42/255, 198/255)
 
 --create the correct text object and make it invisible
@@ -94,15 +97,17 @@ correctObject.isvisible = false
 incorrectObject = display.newText("Incorrect!", display.contentWidth/2, display.contentHeight*2/3, nil, 50 )
 
 --create numeric field
-numericField = native.newTextField( display.contentWidth/2, display.contentHeight/2, 150, 80 )
+numericField = native.newTextField( 700, display.contentHeight/2, 200, 120 )
 numericField.inputType = "number"
 
 --add the event listener for the numeric field
 numericField:addEventListener( "userInput", numericFieldListener )
 
----------------------------------------------------------------------------
+--------------------------------------------------------\-------------------
 --FUNCTION CALL
 -----------------------------------------------------------------------------
 
 --call the function to ask the question
 askQuestion()
+
+
