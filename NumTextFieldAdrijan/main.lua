@@ -27,6 +27,15 @@ local randomNumber2
 local userAnswer
 local correctAnswer
 local incorrectObject
+local points
+local pointsText
+local liveNumber
+local heart1
+local heart2
+local heart3
+local gameOverObject
+local winnerObject
+
 
 
 ------------------------------------------------------------------
@@ -47,7 +56,7 @@ end
 
 local function HideCorrect()
 	correctObject.isvisible = false
-	incorrectObject.isVisible = false
+	
 	askQuestion()
 end
 
@@ -66,20 +75,79 @@ local function numericFieldListener(event)
 
 		--if the user answer and the correct answer are the same:
 		if (userAnswer == correctAnswer) then
+			--give the user a point if they get the correct answer
+			points = points + 1
 			incorrectObject.isVisible = false
 			correctObject.isVisible = true
-			timer.performWithDelay(2000, HideCorrect)
+			timer.performWithDelay(1000, HideCorrect)
 			event.target.text = ""
+			
+
+
 
 		else 
+			-- taking away the hearts
+			liveNumber = liveNumber - 1
 			incorrectObject.isVisible = true
 			correctObject.isVisible = false
 			event.target.text = ""
+			askQuestion()
+
+			
 
 		end
 	end
 end
 
+local function heartNumber(event)
+	
+
+	if (liveNumber == 2) then
+		heart1.isVisible = false
+
+	elseif (liveNumber == 1) then
+		heart1.isVisible = false
+		heart2.isVisible = false
+
+	elseif (liveNumber == 0) then
+		heart1.isVisible = false
+		heart2.isVisible = false
+		heart3.isVisible = false
+		gameOverObject.isVisible = true	
+		questionObject.isVisible = false
+		numericField.isVisible = false
+		pointsText.isVisible = false
+		correctObject.isVisible = false
+		incorrectObject.isVisible = false
+	end
+end
+
+local function pointsCounter(event)
+	if (points == 1) then
+		pointsText.text = "points = 1"
+
+	elseif (points == 2) then
+		pointsText.text = "points = 2"
+
+	elseif (points == 3) then
+		pointsText.text = "points = 3"
+
+	elseif (points == 4) then
+		pointsText.text = "points = 4"
+
+	elseif (points == 5) then
+		pointsText.text = "points = 5"
+		winnerObject.isVisible = true
+		incorrectObject.isVisible = false
+		pointsText.isVisible = false
+		questionObject.isVisible = false
+		numericField.isVisible = false
+		correctObject.isVisible = false
+		heart3.isVisible = false
+		heart1.isVisible = false
+		heart2.isVisible = false
+	end
+end
 
 
 -------------------------------------------------------------
@@ -95,13 +163,45 @@ correctObject = display.newText( "Correct!", display.contentWidth/2, display.con
 correctObject:setTextColor(155/255, 42/255, 198/255)
 correctObject.isvisible = false
 incorrectObject = display.newText("Incorrect!", display.contentWidth/2, display.contentHeight*2/3, nil, 50 )
-
+incorrectObject.isvisible = false
 --create numeric field
 numericField = native.newTextField( 700, display.contentHeight/2, 200, 120 )
 numericField.inputType = "number"
 
---add the event listener for the numeric field
-numericField:addEventListener( "userInput", numericFieldListener )
+
+points = 0
+
+-- display the amount of points as a text object
+pointsText = display.newText("points = " .. points, 850, 100, nil, 50)
+pointsText:setTextColor(155/255, 42/255, 198/255)
+
+-- creating heart1
+heart1 = display.newImageRect("Images/heart.png", 200, 150)
+heart1.x = 100
+heart1.y = 100
+
+-- creating heart2
+heart2 = display.newImageRect("Images/heart.png", 200, 150)
+heart2.x = 300
+heart2.y = 100
+
+-- creating heart3
+heart3 = display.newImageRect("Images/heart.png", 200, 150)
+heart3.x = 500
+heart3.y = 100
+
+-- creating the number of lives
+liveNumber = 3
+
+gameOverObject = display.newImageRect("Images/gameOver.png", 700, 700)
+gameOverObject.isVisible = false
+gameOverObject.x = display.contentHeight/2
+gameOverObject.y = display.contentWidth/2
+
+winnerObject = display.newImageRect("Images/winner.png", 500, 500)
+winnerObject.isVisible = false
+winnerObject.x = display.contentHeight/2
+winnerObject.y = display.contentWidth/2
 
 --------------------------------------------------------\-------------------
 --FUNCTION CALL
@@ -109,5 +209,15 @@ numericField:addEventListener( "userInput", numericFieldListener )
 
 --call the function to ask the question
 askQuestion()
+Runtime:addEventListener("enterFrame", HideCorrect)
+--add the function HideCorrect
 
+-- added event heartNumber
+Runtime:addEventListener("enterFrame", heartNumber)
+
+--added event pointsCounter
+Runtime:addEventListener("enterFrame", pointsCounter)
+
+--add the event listener for the numeric field
+numericField:addEventListener( "userInput", numericFieldListener )
 
