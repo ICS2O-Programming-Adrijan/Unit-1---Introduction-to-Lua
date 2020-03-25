@@ -209,8 +209,10 @@ winnerObject.y = display.contentWidth/2
 
 --call the function to ask the question
 askQuestion()
-Runtime:addEventListener("enterFrame", HideCorrect)
+
 --add the function HideCorrect
+Runtime:addEventListener("enterFrame", HideCorrect)
+
 
 -- added event heartNumber
 Runtime:addEventListener("enterFrame", heartNumber)
