@@ -34,6 +34,11 @@ local heart2
 local heart3
 local gameOverObject
 local winnerObject
+local totalSeconds = 5
+local secondsLeft = 5
+local clockText
+local countDownTimer
+
 
 
 ----------------------------------------------------------------------
@@ -116,6 +121,80 @@ local function numericFieldListener(event)
 	end
 end
 
+local function UpdateTime()
+	
+	--decrement the number of seconds 
+	secondsLeft = secondsLeft - 1
+
+	--display the number of seconds left in the clock object
+	clockText.text = secondsLeft .. ""
+
+	if (secondsLeft == 0) then
+		-- reset the number of seconds left
+		secondsLeft = totalSeconds
+		liveNumber = liveNumber - 1
+
+		-- if there are no lives left end the game and play a noise
+		
+	end 	
+end
+
+-- function that calls the timer
+local function StartTimer()
+	--create a countdown timer that loops infinitely
+	countDownTimer = timer.performWithDelay( 1000, UpdateTime, 0)
+end
+
+local function heartNumber(event)
+	
+
+	if (liveNumber == 2) then
+		heart1.isVisible = false
+
+	elseif (liveNumber == 1) then
+		heart1.isVisible = false
+		heart2.isVisible = false
+
+	elseif (liveNumber == 0) then
+		heart1.isVisible = false
+		heart2.isVisible = false
+		heart3.isVisible = false
+		gameOverObject.isVisible = true	
+		questionObject.isVisible = false
+		numericField.isVisible = false
+		pointsText.isVisible = false
+		correctObject.isVisible = false
+		incorrectObject.isVisible = false
+	end
+end
+
+local function pointsCounter(event)
+	if (points == 1) then
+		pointsText.text = "points = 1"
+
+	elseif (points == 2) then
+		pointsText.text = "points = 2"
+
+	elseif (points == 3) then
+		pointsText.text = "points = 3"
+
+	elseif (points == 4) then
+		pointsText.text = "points = 4"
+
+	elseif (points == 5) then
+		pointsText.text = "points = 5"
+		winnerObject.isVisible = true
+		incorrectObject.isVisible = false
+		pointsText.isVisible = false
+		questionObject.isVisible = false
+		numericField.isVisible = false
+		correctObject.isVisible = false
+		heart3.isVisible = false
+		heart1.isVisible = false
+		heart2.isVisible = false
+	end
+end
+
 
 
 
@@ -183,6 +262,9 @@ winnerObject.isVisible = false
 winnerObject.x = display.contentHeight/2
 winnerObject.y = display.contentWidth/2
 
+clockText = display.newText("Time: 5", 300, 300, arial, 100)
+clockText:setTextColor( 255/255, 255/255, 255/255)
+
 
 
 
@@ -198,3 +280,10 @@ askQuestion()
 numericField:addEventListener( "userInput", numericFieldListener )
 
 
+Runtime:addEventListener("enterFrame", StartTimer)
+
+-- added event heartNumber
+Runtime:addEventListener("enterFrame", heartNumber)
+
+--added event pointsCounter
+Runtime:addEventListener("enterFrame", pointsCounter)
