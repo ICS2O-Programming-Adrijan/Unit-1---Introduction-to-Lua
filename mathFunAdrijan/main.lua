@@ -287,3 +287,5 @@ Runtime:addEventListener("enterFrame", heartNumber)
 
 --added event pointsCounter
 Runtime:addEventListener("enterFrame", pointsCounter)
+
+StartTimer()
