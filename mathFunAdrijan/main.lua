@@ -79,10 +79,14 @@ local function askQuestion()
 		--create the question 
 		questionObject.text = randomNumber1 .. " * " .. randomNumber2 .. " = "
 	elseif ( randomOperator == 4) then 
+		randomNumber1 = math.random(1,4)
+		randomNumber2 = math.random(1,4)
 
 		--calculate the correctAnswer
 		correctAnswer = randomNumber1 / randomNumber2
-		math.round(correctAnswer) 
+		correctAnswer = correctAnswer * 10
+		math.round(correctAnswer)
+		correctAnswer = correctAnswer / 10 
 
 		-- create the question
 		questionObject.text = randomNumber1 .. " / " .. randomNumber2 .. " = "
