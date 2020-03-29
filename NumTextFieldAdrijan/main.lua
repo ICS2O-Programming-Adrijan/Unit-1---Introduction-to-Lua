@@ -57,7 +57,6 @@ end
 local function HideCorrect()
 	correctObject.isvisible = false
 	
-	askQuestion()
 end
 
 local function numericFieldListener(event)
@@ -77,24 +76,18 @@ local function numericFieldListener(event)
 		if (userAnswer == correctAnswer) then
 			--give the user a point if they get the correct answer
 			points = points + 1
-			incorrectObject.isVisible = false
-			correctObject.isVisible = true
+			incorrectObject.alpha = 0
+			correctObject.alpha = 1
 			timer.performWithDelay(1000, HideCorrect)
 			event.target.text = ""
-			
-
-
-
+			askQuestion()
 		else 
 			-- taking away the hearts
 			liveNumber = liveNumber - 1
-			incorrectObject.isVisible = true
-			correctObject.isVisible = false
+			incorrectObject.alpha = 1
+			correctObject.alpha = 0
 			event.target.text = ""
 			askQuestion()
-
-			
-
 		end
 	end
 end
@@ -161,9 +154,9 @@ questionObject:setTextColor(155/255, 42/255, 198/255)
 --create the correct text object and make it invisible
 correctObject = display.newText( "Correct!", display.contentWidth/2, display.contentHeight*2/3, nil, 50 )
 correctObject:setTextColor(155/255, 42/255, 198/255)
-correctObject.isvisible = false
+correctObject.alpha = 0
 incorrectObject = display.newText("Incorrect!", display.contentWidth/2, display.contentHeight*2/3, nil, 50 )
-incorrectObject.isvisible = false
+incorrectObject.alpha = 0
 --create numeric field
 numericField = native.newTextField( 700, display.contentHeight/2, 200, 120 )
 numericField.inputType = "number"

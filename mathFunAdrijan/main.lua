@@ -34,10 +34,7 @@ local heart2
 local heart3
 local gameOverObject
 local winnerObject
-local totalSeconds = 5
-local secondsLeft = 5
-local clockText
-local countDownTimer
+
 
 
 
@@ -48,7 +45,7 @@ local countDownTimer
 local function askQuestion()
 
 	--generate a number between 1 and 4
-	randomOperator = math.random(1,2)
+	randomOperator = math.random(1,4)
 
 	--gernerate 2 random numbers between a max. and a min.
 	randomNumber1 = math.random(0, 4)
@@ -71,9 +68,24 @@ local function askQuestion()
 
 			--create the question in the text box
 			questionObject.text = randomNumber1 .. " - " .. randomNumber2 .. " = "
-		else askQuestion()
-
+		else 
+			askQuestion()
 		end
+	elseif ( randomOperator == 3) then 
+
+		--calculate the correctAnswer
+		correctAnswer = randomNumber1 * randomNumber2
+
+		--create the question 
+		questionObject.text = randomNumber1 .. " * " .. randomNumber2 .. " = "
+	elseif ( randomOperator == 4) then 
+
+		--calculate the correctAnswer
+		correctAnswer = randomNumber1 / randomNumber2
+		math.round(correctAnswer) 
+
+		-- create the question
+		questionObject.text = randomNumber1 .. " / " .. randomNumber2 .. " = "
 	end
 end
 
@@ -114,36 +126,11 @@ local function numericFieldListener(event)
 			correctObject.isVisible = false
 			event.target.text = ""
 			askQuestion()
-
-			
-
 		end
 	end
 end
 
-local function UpdateTime()
-	
-	--decrement the number of seconds 
-	secondsLeft = secondsLeft - 1
 
-	--display the number of seconds left in the clock object
-	clockText.text = secondsLeft .. ""
-
-	if (secondsLeft == 0) then
-		-- reset the number of seconds left
-		secondsLeft = totalSeconds
-		liveNumber = liveNumber - 1
-
-		-- if there are no lives left end the game and play a noise
-		
-	end 	
-end
-
--- function that calls the timer
-local function StartTimer()
-	--create a countdown timer that loops infinitely
-	countDownTimer = timer.performWithDelay( 1000, UpdateTime, 0)
-end
 
 local function heartNumber(event)
 	
@@ -226,7 +213,7 @@ incorrectObject = display.newText("Incorrect!", 700, 600, nil, 50 )
 incorrectObject.isvisible = false
 --create numeric field
 numericField = native.newTextField( 700, display.contentHeight/2, 200, 120 )
-numericField.inputType = "number"
+
 
 points = 0
 
@@ -262,8 +249,6 @@ winnerObject.isVisible = false
 winnerObject.x = display.contentHeight/2
 winnerObject.y = display.contentWidth/2
 
-clockText = display.newText("Time: 5", 300, 300, arial, 100)
-clockText:setTextColor( 255/255, 255/255, 255/255)
 
 
 
@@ -280,7 +265,6 @@ askQuestion()
 numericField:addEventListener( "userInput", numericFieldListener )
 
 
-Runtime:addEventListener("enterFrame", StartTimer)
 
 -- added event heartNumber
 Runtime:addEventListener("enterFrame", heartNumber)
@@ -288,4 +272,4 @@ Runtime:addEventListener("enterFrame", heartNumber)
 --added event pointsCounter
 Runtime:addEventListener("enterFrame", pointsCounter)
 
-StartTimer()
+
