@@ -7,9 +7,16 @@
 -- I added a second object that
 -- moves in a different direction
 --fades out and grows in size.
-
+---------------------------------------------------------------------------------
 -- hide the status background
 display.setStatusBar(display.HiddenStatusBar)
+
+local music = audio.loadSound("Sounds/bkgMusic.mp3")
+local musicChannel
+
+local function Music()
+	musicChannel = audio.play(music)
+end
 
 -- global variables
 scrollSpeed = 3
@@ -66,3 +73,5 @@ end
 
 --movestar will be called over and over again
 Runtime:addEventListener("enterFrame", moveStar) 
+
+Runtime:addEventListener("enterFrame", Music)

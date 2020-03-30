@@ -15,6 +15,7 @@ display.setDefault("background", 30/255, 200/255, 150/255)
 --LOCAL VARIABLES
 -------------------------------------------------------------------------
 
+
 --setting the variables 
 local equationOption
 local randomNumber1
@@ -35,8 +36,16 @@ local heart3
 local gameOverObject
 local winnerObject
 
+-------------------------------------------------------------------
+--SOUNDS
+----------------------------------------------------------------------
+--Correct sound 
+local correctSound = audio.loadSound("Sounds/incorrectSound")
+local correctSoundChannel
 
-
+--Incorrect sound 
+local incorrectSound = audio.loadSound("Sounds/wrongSound")
+local incorrectSoundChannel 
 
 ----------------------------------------------------------------------
 --LOCAL FUNCTIONS
@@ -116,14 +125,15 @@ local function numericFieldListener(event)
 
 		--if the user answer and the correct answer are the same:
 		if (userAnswer == correctAnswer) then
+			correctSoundChannel = audio.play(correctSound)
 			--give the user a point if they get the correct answer
 			points = points + 1
 			incorrectObject.isVisible = false
 			correctObject.isVisible = true
 			timer.performWithDelay(100, HideCorrect)
 			event.target.text = ""
-
 		else 
+			incorrectSoundChannel = audio.play(incorrectSound)
 			-- taking away the hearts
 			liveNumber = liveNumber - 1
 			incorrectObject.isVisible = true
@@ -136,16 +146,15 @@ end
 
 
 
+
 local function heartNumber(event)
 	
 
 	if (liveNumber == 2) then
 		heart1.isVisible = false
-
 	elseif (liveNumber == 1) then
 		heart1.isVisible = false
 		heart2.isVisible = false
-
 	elseif (liveNumber == 0) then
 		heart1.isVisible = false
 		heart2.isVisible = false
@@ -162,16 +171,12 @@ end
 local function pointsCounter(event)
 	if (points == 1) then
 		pointsText.text = "points = 1"
-
 	elseif (points == 2) then
 		pointsText.text = "points = 2"
-
 	elseif (points == 3) then
 		pointsText.text = "points = 3"
-
 	elseif (points == 4) then
 		pointsText.text = "points = 4"
-
 	elseif (points == 5) then
 		pointsText.text = "points = 5"
 		winnerObject.isVisible = true
@@ -275,5 +280,6 @@ Runtime:addEventListener("enterFrame", heartNumber)
 
 --added event pointsCounter
 Runtime:addEventListener("enterFrame", pointsCounter)
+
 
 
