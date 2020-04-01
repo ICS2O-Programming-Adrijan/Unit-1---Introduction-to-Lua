@@ -35,16 +35,20 @@ local heart2
 local heart3
 local gameOverObject
 local winnerObject
+local totalSeconds = 10
+local secondsLeft = 10
+local clockText
+local countDownTimer
 
 -------------------------------------------------------------------
 --SOUNDS
 ----------------------------------------------------------------------
 --Correct sound 
-local correctSound = audio.loadSound("Sounds/incorrectSound")
+local correctSound = audio.loadSound("Sounds/incorrectSound.mp3")
 local correctSoundChannel
 
 --Incorrect sound 
-local incorrectSound = audio.loadSound("Sounds/wrongSound")
+local incorrectSound = audio.loadSound("Sounds/wrongSound.mp3")
 local incorrectSoundChannel 
 
 ----------------------------------------------------------------------
@@ -94,7 +98,7 @@ local function askQuestion()
 		--calculate the correctAnswer
 		correctAnswer = randomNumber1 / randomNumber2
 		correctAnswer = correctAnswer * 10
-		math.round(correctAnswer)
+		correctAnswer = math.round(correctAnswer)
 		correctAnswer = correctAnswer / 10 
 
 		-- create the question
@@ -191,7 +195,26 @@ local function pointsCounter(event)
 	end
 end
 
+local function UpdateTime()
+	
+	-- decrement the number of seconds
+	secondsLeft = secondsLeft - 1
 
+	-- display the number of seconds in the clock object 
+	clockText.text = secondsLeft .. ""
+
+	if (secondsLeft == 0) then
+		--reset the number of seconds left 
+		secondsLeft = totalSeconds
+		lives = lives - 1
+	end
+end
+
+--function that calls the timer
+local function StartTimer()
+	--create a countDownTimer that loops infinetely
+	countDownTimer = timer.performWithDelay( 1000, UpdateTime, 0)
+end
 
 
 
@@ -222,7 +245,7 @@ incorrectObject = display.newText("Incorrect!", 700, 600, nil, 50 )
 incorrectObject.isvisible = false
 --create numeric field
 numericField = native.newTextField( 700, display.contentHeight/2, 200, 120 )
-
+numericField.inputType = "decimal"
 
 points = 0
 
@@ -279,6 +302,8 @@ numericField:addEventListener( "userInput", numericFieldListener )
 Runtime:addEventListener("enterFrame", heartNumber)
 
 --added event pointsCounter
+Runtime:addEventListener("enterFrame", pointsCounter)
+
 Runtime:addEventListener("enterFrame", pointsCounter)
 
 
