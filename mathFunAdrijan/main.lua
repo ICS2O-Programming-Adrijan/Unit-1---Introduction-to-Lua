@@ -56,6 +56,7 @@ local incorrectSoundChannel
 ---------------------------------------------------------------------------
 
 local function askQuestion()
+	
 
 	--generate a number between 1 and 4
 	randomOperator = math.random(1,4)
@@ -206,7 +207,7 @@ local function UpdateTime()
 	if (secondsLeft == 0) then
 		--reset the number of seconds left 
 		secondsLeft = totalSeconds
-		lives = lives - 1
+		liveNumber = liveNumber - 1
 	end
 end
 
@@ -271,7 +272,7 @@ heart3.y = 100
 -- creating the number of lives
 liveNumber = 3
 
-gameOverObject = display.newImageRect("Images/gameOver.png", 700, 700)
+gameOverObject = display.newImageRect("Images/gameOver.png", 700, 700, nil, 50)
 gameOverObject.isVisible = false
 gameOverObject.x = display.contentHeight/2
 gameOverObject.y = display.contentWidth/2
@@ -280,6 +281,10 @@ winnerObject = display.newImageRect("Images/winner.png", 500, 500)
 winnerObject.isVisible = false
 winnerObject.x = display.contentHeight/2
 winnerObject.y = display.contentWidth/2
+
+clockText = display.newText("Time: " .. secondsLeft, 700, 500, nil, 70)
+clockText.x = 700
+clockText.y = 300
 
 
 
@@ -291,6 +296,12 @@ winnerObject.y = display.contentWidth/2
 
 --call the function to ask the question
 askQuestion()
+
+StartTimer()
+
+UpdateTime()
+
+
 
 
 --add the event listener for the numeric field
@@ -304,7 +315,6 @@ Runtime:addEventListener("enterFrame", heartNumber)
 --added event pointsCounter
 Runtime:addEventListener("enterFrame", pointsCounter)
 
-Runtime:addEventListener("enterFrame", pointsCounter)
 
 
 
