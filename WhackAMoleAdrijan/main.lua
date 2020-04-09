@@ -48,13 +48,15 @@ scoreText:scale(3, 3)
 --this function that makes the mole appear in a random
 -- position on the screen before calling the hide function
 function PopUp( )
-	timer.performWithDelay(500, Hide)
+	
 	--choosing a random positionon the screen between 0
 	--and the size of the screen
 	mole.x = math.random( 0, display.contentWidth)
 	mole.y = math.random( 0, display.contentHeight)
 
 	mole.isVisible = true
+
+	timer.performWithDelay(500, Hide)
 end
 
 --this function calls the PopUp function after 3 sec.
