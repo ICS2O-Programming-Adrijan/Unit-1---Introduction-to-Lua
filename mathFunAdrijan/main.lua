@@ -44,8 +44,9 @@ local countDownTimer
 --SOUNDS
 ----------------------------------------------------------------------
 --Correct sound 
-local correctSound = audio.loadSound("Sounds/incorrectSound.mp3")
+local correctSound = audio.loadSound("Sounds/correctSound.mp3")
 local correctSoundChannel
+
 
 --Incorrect sound 
 local incorrectSound = audio.loadSound("Sounds/wrongSound.mp3")
@@ -161,6 +162,7 @@ local function heartNumber(event)
 		heart1.isVisible = false
 		heart2.isVisible = false
 	elseif (liveNumber == 0) then
+		clockText.isVisible = false
 		heart1.isVisible = false
 		heart2.isVisible = false
 		heart3.isVisible = false
