@@ -57,6 +57,8 @@ local incorrectSoundChannel
 ---------------------------------------------------------------------------
 
 local function askQuestion()
+
+
 	
 
 	--generate a number between 1 and 4
@@ -131,6 +133,7 @@ local function numericFieldListener(event)
 
 		--if the user answer and the correct answer are the same:
 		if (userAnswer == correctAnswer) then
+			secondsLeft = totalSeconds
 			correctSoundChannel = audio.play(correctSound)
 			--give the user a point if they get the correct answer
 			points = points + 1
