@@ -83,7 +83,7 @@ bkg:toBack()
 --FUNCTIONS
 -------------------------------------------------------------------
 -- create the first ball
-local function FirstBall()
+ function FirstBall()
 	-- creating FirstBall
 	local ball1 = display.newImage("Images/super_ball.png", 0, 0)
 
@@ -91,17 +91,27 @@ local function FirstBall()
 	physics.addBody(ball1, {density=1.0, friction=0.5, bounce=0.3, radius=25})
 end
 -----------------------------------------------------------------
-local function SecondBall()
+ function SecondBall()
 	local ball2 = display.newImage("Images/super_ball.png", 1000, 0)
 
 	--add to physics
 	physics.addBody(ball2, {density=3, friction=0.5, bounce=0.3, radius=20})	
 end
+---------------------------------------------------------------------------
+function PeterBall()
+	local peter = display.newImage("Images/Peter.png", 100, 50)
+
+	--add to physics
+	physics.addBody(peter, {density=200, friction=1, bounce=0.1, radius=60})	
+end
+
 
 ---------------------------------------------------------------------
 --TIMER DELAYS - call each function after the given millisecond
 ----------------------------------------------------------------------
-timer.performWithDelay(0, firstBall)
+timer.performWithDelay(0, FirstBall)
 
 timer.performWithDelay(500, SecondBall)
+
+timer.performWithDelay(0, PeterBall)
 
