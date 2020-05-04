@@ -93,7 +93,7 @@ end
 -- mole is touched, the Whached function 
 --is called
 
-mole:addEventListener( "touch", Whached)
+mole:addEventListener("touch", Whached)
 
 GameStart()
 
