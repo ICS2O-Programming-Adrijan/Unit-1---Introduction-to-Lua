@@ -74,12 +74,12 @@ local function Hide()
 end
 
 -- this function starts the game
-local function GameStart()
+function GameStart()
 	PopUpDelay()
 end
 
 --this function adds to the score when the user clicks the mole
-local function Whached( event )
+function Whached( event )
 
 	--if touch phase just started
 	if (event.phase == "began") then
