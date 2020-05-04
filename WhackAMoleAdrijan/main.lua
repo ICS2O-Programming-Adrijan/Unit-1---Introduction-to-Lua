@@ -65,7 +65,7 @@ function PopUpDelay()
 end
 
 --this function makes the mole invisible and then calls the PopUpDelay function 	function Hide()
-local function Hide()
+function Hide()
 
 	--changing the visibility
 	mole.isVisible = false
