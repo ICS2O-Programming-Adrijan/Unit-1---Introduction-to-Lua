@@ -9,7 +9,16 @@
 -----------------------------------------------------------------------------------------
 --remove the status bar
 display.setStatusBar(display.HiddenStatusBar)
+----------------------------------------------------------
+--Sounds
+-----------------------------------------------------------
+--adding boing sound effect
+local boing = audio.loadSound("Sounds/Boing-sound.mp3")
+local boingChannel
 
+local bkgSound = audio.loadSound("Sounds/elevatorSound.mp3")
+local bkgSoundChannel
+-----------------------------------------------------------
 -- Cresting a background
 local bkg = display.newRect( 0, 0, display.contentWidth, display.contentHeight)
 	
@@ -44,7 +53,7 @@ scoreText:setFillColor(127/255, 200/255, 73/255)
 scoreText:scale(3, 3)
 
 --------------------FUNCTIONS---------------------------
-
+bkgSoundChannel = audio.play(bkgSound)
 --this function that makes the mole appear in a random
 -- position on the screen before calling the hide function
 function PopUp( )
@@ -56,7 +65,7 @@ function PopUp( )
 
 	mole.isVisible = true
 
-	timer.performWithDelay(500, Hide)
+	timer.performWithDelay(1000, Hide)
 end
 
 --this function calls the PopUp function after 3 sec.
@@ -70,7 +79,7 @@ function Hide()
 	--changing the visibility
 	mole.isVisible = false
 
-	Runtime:addEventListener("enterFrame", PopupDelay)
+	PopUpDelay()
 end
 
 -- this function starts the game
@@ -83,7 +92,8 @@ function Whached( event )
 
 	--if touch phase just started
 	if (event.phase == "began") then
-		score = 1
+		boingChannel = audio.play(boing)
+		score = score + 1
 		scoreText.text = "Score = "..score..""
 	end
 end
