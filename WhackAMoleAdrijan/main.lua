@@ -53,7 +53,7 @@ scoreText:setFillColor(127/255, 200/255, 73/255)
 scoreText:scale(3, 3)
 
 --------------------FUNCTIONS---------------------------
-bkgSoundChannel = audio.play(bkgSound)
+bkgSoundChannel = audio.play(bkgSound, {loops=-1} )
 --this function that makes the mole appear in a random
 -- position on the screen before calling the hide function
 function PopUp( )
